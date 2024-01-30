@@ -44,7 +44,12 @@ export class ProductService {
 
     const product = await query.getMany();
     const rating = product.map((value) => {
-      value.rating = JSON.parse(value.rating as unknown as string);
+      // Pastikan bahwa value.rating sudah dalam bentuk string JSON yang benar
+      value.rating =
+        typeof value.rating === 'string'
+          ? JSON.parse(value.rating)
+          : value.rating;
+
       return value;
     });
     return rating;
