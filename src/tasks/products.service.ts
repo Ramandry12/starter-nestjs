@@ -51,9 +51,6 @@ export class ProductService {
   }
 
   async getProductById(id: string): Promise<Product> {
-    if (id.length !== 36) {
-      throw new UnprocessableEntityException(`Invalid UUID : ${id}`);
-    }
     const found = await this.productRepository.findOne({ where: { id } });
     if (!found) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
